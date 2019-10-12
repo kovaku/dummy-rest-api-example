@@ -2,6 +2,7 @@ package org.github.kovaku.dummyrestapiexample.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -25,14 +26,44 @@ public class EmployeeService {
         return employees;
     }
 
-    public Employee getEmployeeById(String id) {
+    public Optional<Employee> getEmployeeById(String id) {
         return employees.stream()
             .filter(employee -> employee.getId().equals(id))
-            .findFirst()
-            .orElse(null);
+            .findFirst();
     }
 
-    public Boolean addEmployee(Employee employee) {
-        return employees.add(employee);
+    public Optional<Employee> addEmployee(Employee employee) {
+        if(employees.add(employee)) {
+            return Optional.of(employee);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Employee> updateEmployee(String id, Employee updatedEmployee) {
+        updatedEmployee.setId(id);
+        Optional<Employee> oldEmployee = employees
+            .stream()
+            .filter(employee -> employee.getId().equals(id))
+            .findFirst();
+        if (oldEmployee.isPresent()) {
+            employees.remove(oldEmployee.get());
+            employees.add(updatedEmployee);
+            return Optional.of(updatedEmployee);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Boolean deleteEmployee(String id) {
+        Optional<Employee> employee = employees
+            .stream()
+            .filter(e -> e.getId().equals(id))
+            .findFirst();
+        if(employee.isPresent()) {
+            return employees.remove(employee.get());
+        } else {
+            return Boolean.FALSE;
+        }
     }
 }

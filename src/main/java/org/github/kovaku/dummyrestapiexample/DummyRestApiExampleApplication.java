@@ -9,5 +9,4 @@ public class DummyRestApiExampleApplication {
     public static void main(String[] args) {
         SpringApplication.run(DummyRestApiExampleApplication.class, args);
     }
-
 }

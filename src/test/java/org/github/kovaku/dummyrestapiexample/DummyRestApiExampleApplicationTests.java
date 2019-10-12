@@ -1,5 +1,6 @@
 package org.github.kovaku.dummyrestapiexample;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -82,40 +83,40 @@ public class DummyRestApiExampleApplicationTests {
             .log()
             .all()
             .assertThat()
-            .statusCode(201)
+            .statusCode(200)
             .extract()
             .body()
             .as(Employee.class);
 
         //Update
         String employeeId = createEmployeeResponse.getId();
-//
-//        Employee updateEmployeeRequest = new Employee(createEmployeeResponse.getName(), 100L, 19);
-//        Employee updateEmployeeResponse = given(getCommonRequestSpecifications())
-//            .body(updateEmployeeRequest)
-//            .when()
-//            .pathParam(EMPLOYEE_ID_PARAM, employeeId)
-//            .put(API_UPDATE_EMPLOYEE_PATH)
-//            .then()
-//            .log()
-//            .all()
-//            .assertThat()
-//            .statusCode(200)
-//            .extract()
-//            .body()
-//            .as(UpdateEmployeeResponse.class);
-//
-//        //Delete
-//        getCommonRequestSpecifications()
-//            .when()
-//            .pathParam(EMPLOYEE_ID_PARAM, employeeId)
-//            .delete(API_DELETE_EMPLOYEE_PATH)
-//            .then()
-//            .log()
-//            .all()
-//            .assertThat()
-//            .statusCode(200)
-//            .body(containsString("successfully"));
+
+        Employee updateEmployeeRequest = new Employee(createEmployeeResponse.getName(), 34, 1001, "");
+        Employee updateEmployeeResponse = given(getCommonRequestSpecifications())
+            .body(updateEmployeeRequest)
+            .when()
+            .pathParam(EMPLOYEE_ID_PARAM, employeeId)
+            .put(API_UPDATE_EMPLOYEE_PATH)
+            .then()
+            .log()
+            .all()
+            .assertThat()
+            .statusCode(200)
+            .extract()
+            .body()
+            .as(Employee.class);
+
+        //Delete
+        getCommonRequestSpecifications()
+            .when()
+            .pathParam(EMPLOYEE_ID_PARAM, employeeId)
+            .delete(API_DELETE_EMPLOYEE_PATH)
+            .then()
+            .log()
+            .all()
+            .assertThat()
+            .statusCode(200)
+            .body(containsString("successfully"));
     }
 
     public RequestSpecification getCommonRequestSpecifications() {
