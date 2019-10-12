@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "employee_name": {
+          "type": "string"
+        },
+        "employee_salary": {
+          "type": "number"
+        },
+        "employee_age": {
+          "type": "number"
+        },
+        "profile_image": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "employee_name",
+        "employee_salary",
+        "employee_age",
+        "profile_image"
+      ]
+    }
+  ]
+}
