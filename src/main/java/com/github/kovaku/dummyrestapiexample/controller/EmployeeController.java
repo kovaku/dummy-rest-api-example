@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.github.kovaku.dummyrestapiexample.domain.Employee;
+import org.github.kovaku.dummyrestapiexample.domain.EmployeeRequest;
 import org.github.kovaku.dummyrestapiexample.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping(path = "/employees", produces = "application/json")
-    public Set<Employee> getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
@@ -38,19 +39,14 @@ public class EmployeeController {
     }
 
     @PostMapping(path = "/create", produces = "application/json")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        Optional<Employee> response = employeeService.addEmployee(employee);
-        if (response.isPresent()) {
-            return new ResponseEntity<>(response.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+    public Employee createEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        return employeeService.addEmployee(convertToEmployee(employeeRequest));
     }
 
     @PutMapping(path = "/update/{id}", produces = "application/json")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody Employee employee) {
-        Optional<Employee> response = employeeService.updateEmployee(id, employee);
-        if (response.isPresent()) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody EmployeeRequest employeeRequest) {
+        Optional<Employee> response = employeeService.updateEmployee(id, convertToEmployee(employeeRequest));
+        if(response.isPresent()) {
             return new ResponseEntity<>(response.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,15 +54,11 @@ public class EmployeeController {
     }
 
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Map<String, Map<String, String>>> updateEmployee(@PathVariable String id) {
-        if (employeeService.deleteEmployee(id)) {
-            Map<String, Map<String, String>> response = new HashMap<>();
-            Map<String, String> message = new HashMap<>();
-            message.put("text", "successfully! deleted Records");
-            response.put("success", message);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public void updateEmployee(@PathVariable String id) {
+        employeeService.deleteEmployee(id);
+    }
+
+    private Employee convertToEmployee(EmployeeRequest e) {
+        return new Employee(null, e.getName(), e.getAge(), e.getSalary(), e.getProfileImage());
     }
 }

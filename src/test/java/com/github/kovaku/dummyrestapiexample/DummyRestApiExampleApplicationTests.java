@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import org.github.kovaku.dummyrestapiexample.domain.Employee;
+import org.github.kovaku.dummyrestapiexample.domain.EmployeeRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,11 +52,11 @@ public class DummyRestApiExampleApplicationTests {
 
     @Test
     public void getSpecificEmployee() {
-        Employee expectedEmployee = new Employee("89fb59be-19a9-4f73-b46d-297f14efdb94", "John Doe", 18, 999, "");
+        EmployeeRequest expectedEmployee = new EmployeeRequest("John Doe", 18, 999, "");
 
         Employee actualEmployee = getCommonRequestSpecifications()
             .when()
-            .pathParam(EMPLOYEE_ID_PARAM, expectedEmployee.getId())
+            .pathParam(EMPLOYEE_ID_PARAM, 1)
             .get(API_GET_EMPLOYEE_PATH)
             .then()
             .log()
@@ -67,13 +68,17 @@ public class DummyRestApiExampleApplicationTests {
             .body()
             .as(Employee.class);
 
-        assertThat(actualEmployee, equalTo(expectedEmployee));
+        assertThat(actualEmployee.getId(), equalTo("1"));
+        assertThat(actualEmployee.getName(), equalTo(expectedEmployee.getName()));
+        assertThat(actualEmployee.getAge(), equalTo(expectedEmployee.getAge()));
+        assertThat(actualEmployee.getSalary(), equalTo(expectedEmployee.getSalary()));
+        assertThat(actualEmployee.getProfileImage(), equalTo(expectedEmployee.getProfileImage()));
     }
 
     @Test
     public void createUpdateDeleteFlow() {
         //Create
-        Employee createEmployeeRequest = new Employee("Test Account", 33, 1000, "");
+        EmployeeRequest createEmployeeRequest = new EmployeeRequest("Test Account", 33, 1000, "");
 
         Employee createEmployeeResponse = given(getCommonRequestSpecifications())
             .body(createEmployeeRequest)
@@ -91,7 +96,7 @@ public class DummyRestApiExampleApplicationTests {
         //Update
         String employeeId = createEmployeeResponse.getId();
 
-        Employee updateEmployeeRequest = new Employee(createEmployeeResponse.getName(), 34, 1001, "");
+        EmployeeRequest updateEmployeeRequest = new EmployeeRequest(createEmployeeResponse.getName(), 34, 1001, "");
         Employee updateEmployeeResponse = given(getCommonRequestSpecifications())
             .body(updateEmployeeRequest)
             .when()
@@ -115,8 +120,7 @@ public class DummyRestApiExampleApplicationTests {
             .log()
             .all()
             .assertThat()
-            .statusCode(200)
-            .body(containsString("successfully"));
+            .statusCode(200);
     }
 
     public RequestSpecification getCommonRequestSpecifications() {
