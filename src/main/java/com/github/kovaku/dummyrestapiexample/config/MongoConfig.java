@@ -1,4 +1,4 @@
-package org.github.kovaku.dummyrestapiexample.config;
+package com.github.kovaku.dummyrestapiexample.config;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "org.github.kovaku")
+@EnableMongoRepositories(basePackages = "com.github.kovaku")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     private static final String LOCALHOST = "localhost";
@@ -45,7 +45,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     protected String getMappingBasePackage() {
-        return "org.github.kovaku";
+        return "com.github.kovaku";
     }
 
     @Bean(destroyMethod = "stop")

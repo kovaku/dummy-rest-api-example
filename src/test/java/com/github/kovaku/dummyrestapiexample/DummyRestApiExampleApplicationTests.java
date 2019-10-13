@@ -1,6 +1,5 @@
-package org.github.kovaku.dummyrestapiexample;
+package com.github.kovaku.dummyrestapiexample;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -8,8 +7,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import org.github.kovaku.dummyrestapiexample.domain.Employee;
-import org.github.kovaku.dummyrestapiexample.domain.EmployeeRequest;
+import com.github.kovaku.dummyrestapiexample.domain.Employee;
+import com.github.kovaku.dummyrestapiexample.domain.EmployeeRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

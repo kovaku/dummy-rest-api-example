@@ -1,4 +1,4 @@
-package org.github.kovaku.dummyrestapiexample.config;
+package com.github.kovaku.dummyrestapiexample.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("org.github.kovaku"))
+            .apis(RequestHandlerSelectors.basePackage("com.github.kovaku"))
             .paths(PathSelectors.any())
             .build();
     }

@@ -1,11 +1,11 @@
-package org.github.kovaku.dummyrestapiexample.persistence;
+package com.github.kovaku.dummyrestapiexample.persistence;
 
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 import java.util.Objects;
 
-import org.github.kovaku.dummyrestapiexample.domain.EmployeeSequence;
+import com.github.kovaku.dummyrestapiexample.domain.EmployeeSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;

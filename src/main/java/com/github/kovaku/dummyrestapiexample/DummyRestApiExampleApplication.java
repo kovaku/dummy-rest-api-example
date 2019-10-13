@@ -1,4 +1,4 @@
-package org.github.kovaku.dummyrestapiexample;
+package com.github.kovaku.dummyrestapiexample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

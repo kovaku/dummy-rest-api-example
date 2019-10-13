@@ -1,16 +1,13 @@
-package org.github.kovaku.dummyrestapiexample.service;
+package com.github.kovaku.dummyrestapiexample.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
-import org.github.kovaku.dummyrestapiexample.domain.Employee;
-import org.github.kovaku.dummyrestapiexample.domain.EmployeeRequest;
-import org.github.kovaku.dummyrestapiexample.persistence.EmployeeRepository;
-import org.github.kovaku.dummyrestapiexample.persistence.EmployeeSequenceGenerator;
+import com.github.kovaku.dummyrestapiexample.domain.Employee;
+import com.github.kovaku.dummyrestapiexample.persistence.EmployeeRepository;
+import com.github.kovaku.dummyrestapiexample.persistence.EmployeeSequenceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +49,12 @@ public class EmployeeService {
         }
     }
 
-    public void deleteEmployee(String id) {
-        employeeRepository.deleteById(id);
+    public Boolean deleteEmployee(String id) {
+        if(employeeRepository.existsById(id)) {
+            employeeRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
