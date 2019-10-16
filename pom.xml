@@ -16,6 +16,8 @@
   <name>dummy-restapiexample-clone</name>
   <description>Dummy REST API service for training purposes</description>
 
+  <packaging>jar</packaging>
+
   <properties>
     <java.version>11</java.version>
     <swagger.version>2.9.2</swagger.version>
@@ -72,6 +74,7 @@
   </dependencies>
 
   <build>
+    <finalName>app</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
