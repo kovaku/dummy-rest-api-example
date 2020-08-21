@@ -1,5 +1,5 @@
 # Dummy Rest API Example
-Simple REST API service for mentees to practice API testing
+Simple REST API service for mentees to practice API testing. The project mimics the API of http://dummy.restapiexample.com/ site.
 
 ## Api documentation
 * http://localhost:8080/api/swagger-ui.html
