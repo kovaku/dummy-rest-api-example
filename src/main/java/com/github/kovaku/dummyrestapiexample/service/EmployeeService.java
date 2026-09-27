@@ -6,8 +6,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 
 import com.github.kovaku.dummyrestapiexample.domain.Employee;
-import com.github.kovaku.dummyrestapiexample.persistence.EmployeeRepository;
-import com.github.kovaku.dummyrestapiexample.persistence.EmployeeSequenceGenerator;
+import com.github.kovaku.dummyrestapiexample.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
